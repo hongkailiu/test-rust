@@ -11,10 +11,20 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - beta
+          - nightly
+          - "1.84.1"
 
     steps:
+    - name: Temporarily modify the rust toolchain version
+      run: rustup override set ${{ matrix.rust }}
+    - name: Output rust version for educational purposes
+      run: rustup --version
     - uses: actions/checkout@v4
     - name: Build
       run: cargo build --verbose

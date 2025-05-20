@@ -9,10 +9,12 @@ jobs:
     strategy:
       matrix:
         rust:
-          - "nightly"
-          - "beta"
-          - "stable"
-          - "1.70.0"
+          - stable
+          - beta
+          - "1.70.0"  # MSRV
+        include:
+          - rust: nightly
+            experimental: true
 
     steps:
       - name: Checkout sources
